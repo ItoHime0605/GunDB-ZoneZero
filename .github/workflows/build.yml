@@ -1,0 +1,52 @@
+name: Build GunDB-ZoneZero NeoForge 1.21.1
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+permissions:
+  contents: read
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - name: Check out ZoneZero changes
+        uses: actions/checkout@v4
+      - name: Check out original GunDB 2.2.2 sources
+        uses: actions/checkout@v4
+        with:
+          repository: Corrinedev/GunDurability-1.21.1
+          ref: main
+          path: upstream
+      - name: Java 21
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+      - name: Install Gradle 8.14
+        uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: '8.14'
+      - name: Generate temporary workbench textures
+        run: |
+          python3 -m pip install --quiet pillow
+          python3 tools/generate_assets.py
+      - name: Apply station source overlay to original GunDB
+        run: python3 tools/apply_to_upstream.py
+      - name: Compile integrated single GunDB mod
+        working-directory: upstream
+        run: gradle --no-daemon build --stacktrace
+      - name: Rename test candidate JAR
+        run: |
+          mkdir -p dist
+          find upstream/build/libs -name '*.jar' ! -name '*-sources.jar' -print
+          test "$(find upstream/build/libs -name '*.jar' ! -name '*-sources.jar' | wc -l)" -eq 1
+          cp "$(find upstream/build/libs -name '*.jar' ! -name '*-sources.jar' | head -1)" \
+            dist/gundb-2.2.2-1.21.1-ZoneZero-v0.7.1-TEST.jar
+          unzip -t dist/*.jar | tail -2
+      - name: Publish test build as workflow artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: GunDB-ZoneZero-v0.7.1-TEST
+          path: dist/*.jar
+          if-no-files-found: error
