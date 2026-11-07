@@ -67,3 +67,19 @@ if not (base/"dmr.json").exists():
     d=json.loads((base/"rifle.json").read_text(encoding="utf-8"))
     (base/"dmr.json").write_text(json.dumps(d,ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
 print("Integrated independent GunDB station; configured",changed,"original categories / guns")
+
+# Compile against the exact TaCZ NeoForge 1.21.1 1.2.0 API used on ZeroZone.
+# The original author project ships a 1.1.8 compile dependency; replace it in the
+# temporary checkout only. Do not vendor third-party binary JARs in our public repo.
+build=UP/"build.gradle"
+gradle=build.read_text(encoding="utf-8")
+old='implementation files("libs/tacz-neoforge-1.21.1-1.1.8-hotfix-r3.jar")'
+assert old in gradle, "Upstream changed TaCZ dependency; review replacement before compiling"
+gradle=gradle.replace(old,'implementation "curse.maven:timeless-and-classics-zero-1028108:9454361"')
+build.write_text(gradle,encoding="utf-8")
+properties=UP/"gradle.properties"
+prop=properties.read_text(encoding="utf-8")
+assert "mod_version=2.2.2" in prop, "Unexpected upstream mod version"
+prop=prop.replace("mod_version=2.2.2","mod_version=2.2.2-ZoneZero.0.7.2")
+properties.write_text(prop,encoding="utf-8")
+print("TaCZ 1.2.0 compile dependency configured via Curse Maven file 9454361")
