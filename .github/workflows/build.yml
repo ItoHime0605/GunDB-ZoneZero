@@ -33,7 +33,7 @@ jobs:
           python3 tools/generate_assets.py
       - name: Apply station source overlay to original GunDB
         run: python3 tools/apply_to_upstream.py
-      - name: Compile integrated single GunDB mod
+      - name: Compile integrated GunDB against TaCZ 1.2.0
         working-directory: upstream
         run: gradle --no-daemon build --stacktrace
       - name: Rename test candidate JAR
@@ -42,11 +42,11 @@ jobs:
           find upstream/build/libs -name '*.jar' ! -name '*-sources.jar' -print
           test "$(find upstream/build/libs -name '*.jar' ! -name '*-sources.jar' | wc -l)" -eq 1
           cp "$(find upstream/build/libs -name '*.jar' ! -name '*-sources.jar' | head -1)" \
-            dist/gundb-2.2.2-1.21.1-ZoneZero-v0.7.1-TEST.jar
+            dist/gundb-2.2.2-1.21.1-ZoneZero-v0.7.2-TaCZ120-TEST.jar
           unzip -t dist/*.jar | tail -2
       - name: Publish test build as workflow artifact
         uses: actions/upload-artifact@v4
         with:
-          name: GunDB-ZoneZero-v0.7.1-TEST
+          name: GunDB-ZoneZero-v0.7.2-TaCZ120-TEST
           path: dist/*.jar
           if-no-files-found: error
