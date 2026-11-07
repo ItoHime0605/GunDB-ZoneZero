@@ -1,0 +1,15 @@
+{
+  "block.gundb.gun_repair_station": "槍械維修台",
+  "container.gundb.gun_repair_station": "槍械維修台",
+  "gui.gundb.repair.gun": "待維修的槍枝",
+  "gui.gundb.repair.material": "維修材料：",
+  "gui.gundb.repair.result": "完成",
+  "gui.gundb.repair.healthy": "無須維修",
+  "gui.gundb.repair.required": "需求：",
+  "gui.gundb.repair.put_gun": "請放入槍枝",
+  "gui.gundb.repair.unsupported": "無可用維修設定",
+  "item.gundb.screwdriver": "螺絲起子",
+  "gui.gundb.repair.gunsmith_level": "槍匠等級：",
+  "gui.gundb.repair.gunsmith_experience": "槍匠經驗",
+  "gui.gundb.repair.experience_hint": "耐久低於50%才獲得5點槍匠經驗"
+}

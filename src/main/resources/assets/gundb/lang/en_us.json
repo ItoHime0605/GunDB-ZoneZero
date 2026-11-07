@@ -1,0 +1,15 @@
+{
+  "block.gundb.gun_repair_station": "Gun Repair Station",
+  "container.gundb.gun_repair_station": "Gun Repair Station",
+  "gui.gundb.repair.gun": "Gun to Repair",
+  "gui.gundb.repair.material": "Repair Material:",
+  "gui.gundb.repair.result": "Result",
+  "gui.gundb.repair.healthy": "No repair needed",
+  "gui.gundb.repair.required": "Required: ",
+  "gui.gundb.repair.put_gun": "Insert a gun",
+  "gui.gundb.repair.unsupported": "No valid repair data",
+  "item.gundb.screwdriver": "Screwdriver",
+  "gui.gundb.repair.gunsmith_level": "Gunsmith Level: ",
+  "gui.gundb.repair.gunsmith_experience": "Gunsmith XP",
+  "gui.gundb.repair.experience_hint": "Repair below 50% durability for +5 Gunsmith XP"
+}
