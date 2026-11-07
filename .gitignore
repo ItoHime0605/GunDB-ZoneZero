@@ -1,0 +1,11 @@
+.gradle/
+build/
+run/
+run-data/
+.idea/
+*.log
+*.part
+# Do not commit large third-party or developer-specific binary libraries.
+libs/
+tacz-neoforge-*.jar
+gundb-2.2.2-*.jar

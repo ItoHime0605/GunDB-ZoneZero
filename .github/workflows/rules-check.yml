@@ -1,0 +1,28 @@
+name: Validate GunDB-ZoneZero repair rules
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+      - name: Compile independent repair rules
+        run: |
+          mkdir -p build/test-classes
+          javac --release 21 -encoding UTF-8 -d build/test-classes \
+            src/main/java/mod/cdv/gdb/repair/RepairStationMath.java \
+            src/main/java/mod/cdv/gdb/repair/RepairStationRules.java \
+            tests/RepairStationMathTest.java tests/RepairStationRulesTest.java
+      - name: Execute repair rules tests
+        run: |
+          java -cp build/test-classes RepairStationMathTest
+          java -cp build/test-classes RepairStationRulesTest
