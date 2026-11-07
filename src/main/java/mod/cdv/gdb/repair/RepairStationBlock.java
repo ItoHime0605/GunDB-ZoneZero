@@ -80,7 +80,7 @@ public class RepairStationBlock extends DoublePlantBlock {
     }
 
     @Override
-    protected MapCodec<? extends DoublePlantBlock> codec() {
+    public MapCodec<? extends DoublePlantBlock> codec() {
         return CODEC;
     }
 
