@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {"item": "minecraft:iron_ingot"},
+    {"item": "kubejs:bottle_cap"},
+    {"item": "minecraft:stick"}
+  ],
+  "result": {"id": "gundb:screwdriver", "count": 1}
+}
